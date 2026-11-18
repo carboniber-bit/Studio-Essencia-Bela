@@ -215,7 +215,51 @@ p {
   color: var(--site-muted);
 }
 
+/* Shiny CTA button: native port of the ShinyButton effect
+   (conic-gradient border, masked dots and travelling shimmer) */
+
+@property --shine-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --shine-offset {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --shine-percent {
+  syntax: "<percentage>";
+  initial-value: 5%;
+  inherits: false;
+}
+
+@property --shine-color {
+  syntax: "<color>";
+  initial-value: #E8D5D0;
+  inherits: false;
+}
+
 .btn {
+  --shine-bg: var(--deep);
+  --shine-fg: var(--site-on-accent);
+  --shine-hi: var(--site-accent);
+  --shine-color: var(--nude);
+  --shine-dot: rgba(255, 255, 255, 0.5);
+  --shine-inner: rgba(232, 213, 208, 0.55);
+  --shine-dots-opacity: 0.16;
+  --shine-veil: 0.3;
+  --shine-veil-hover: 0.5;
+  --shine-percent: 5%;
+  --shine-offset: 0deg;
+  --shine-duration: 11s;
+  --shine-ease: cubic-bezier(0.25, 1, 0.5, 1);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -224,15 +268,75 @@ p {
   padding: 15px 28px;
   border: 1px solid transparent;
   border-radius: 999px;
+  color: var(--shine-fg);
+  background:
+    linear-gradient(var(--shine-bg), var(--shine-bg)) padding-box,
+    conic-gradient(
+      from calc(var(--shine-angle) - var(--shine-offset)),
+      transparent,
+      var(--shine-hi) var(--shine-percent),
+      var(--shine-color) calc(var(--shine-percent) * 2),
+      var(--shine-hi) calc(var(--shine-percent) * 3),
+      transparent calc(var(--shine-percent) * 4)
+    ) border-box;
+  box-shadow: inset 0 0 0 1px var(--shine-inner), 0 14px 30px -18px rgba(62, 46, 43, 0.7);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   line-height: 1.2;
   cursor: pointer;
-  transition: background var(--dur) var(--ease), color var(--dur) var(--ease),
-    border-color var(--dur) var(--ease), transform var(--dur) var(--ease),
-    box-shadow var(--dur) var(--ease);
+  animation: shine-spin var(--shine-duration) linear infinite;
+  transition: --shine-percent 800ms var(--shine-ease),
+    --shine-offset 800ms var(--shine-ease), --shine-color 800ms var(--shine-ease),
+    translate var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.btn::before,
+.btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.btn::before {
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  background: radial-gradient(circle at 2px 2px, var(--shine-dot) 1px, transparent 0) padding-box;
+  background-size: 4px 4px;
+  background-repeat: space;
+  -webkit-mask-image: conic-gradient(
+    from calc(var(--shine-angle) + 45deg),
+    black,
+    transparent 10% 90%,
+    black
+  );
+  mask-image: conic-gradient(
+    from calc(var(--shine-angle) + 45deg),
+    black,
+    transparent 10% 90%,
+    black
+  );
+  opacity: var(--shine-dots-opacity);
+  animation: shine-spin var(--shine-duration) linear infinite;
+}
+
+.btn::after {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(-50deg, transparent, var(--shine-hi), transparent);
+  -webkit-mask-image: radial-gradient(circle at bottom, transparent 30%, black 72%);
+  mask-image: radial-gradient(circle at bottom, transparent 30%, black 72%);
+  filter: blur(7px);
+  opacity: var(--shine-veil);
+  animation: shine-rotate 22s linear infinite;
+  transition: opacity var(--dur) var(--ease);
 }
 
 .btn .ico {
@@ -242,45 +346,70 @@ p {
   transition: transform var(--dur) var(--ease);
 }
 
+.btn:is(:hover, :focus-visible) {
+  --shine-percent: 15%;
+  --shine-offset: 95deg;
+  --shine-color: var(--nude);
+  translate: 0 -2px;
+  box-shadow: inset 0 0 0 1px var(--shine-inner), 0 18px 34px -18px rgba(87, 67, 63, 0.55);
+}
+
+.btn:is(:hover, :focus-visible)::after {
+  opacity: var(--shine-veil-hover);
+}
+
 .btn:hover .ico {
   transform: translateX(3px);
 }
 
-.btn-primary {
-  background: var(--deep);
-  color: var(--site-on-accent);
-  box-shadow: 0 14px 30px -18px rgba(62, 46, 43, 0.7);
+.btn:active {
+  translate: 0 0;
 }
 
-.btn-primary:hover {
-  background: #4B3935;
-  border-color: var(--site-accent);
-  color: var(--site-on-accent);
-  transform: translateY(-2px);
-  box-shadow: 0 18px 34px -18px rgba(87, 67, 63, 0.55);
+.btn-primary {
+  --shine-bg: var(--deep);
+  --shine-fg: var(--site-on-accent);
+  --shine-hi: var(--rosa);
+  --shine-color: var(--nude);
+  --shine-inner: rgba(232, 213, 208, 0.55);
 }
 
 .btn-ghost {
-  border-color: var(--site-border);
-  color: var(--site-fg);
-  background: transparent;
-}
-
-.btn-ghost:hover {
-  border-color: var(--site-fg);
-  transform: translateY(-2px);
+  --shine-bg: rgba(250, 247, 244, 0.74);
+  --shine-fg: var(--site-fg);
+  --shine-hi: var(--rosa);
+  --shine-color: var(--nude);
+  --shine-dot: rgba(87, 67, 63, 0.3);
+  --shine-inner: rgba(197, 143, 145, 0.45);
+  --shine-dots-opacity: 0.14;
+  --shine-veil: 0.16;
+  --shine-veil-hover: 0.26;
+  box-shadow: inset 0 0 0 1px var(--shine-inner), 0 10px 24px -22px rgba(62, 46, 43, 0.35);
 }
 
 .btn-outline-light {
-  border-color: rgba(250, 247, 244, 0.35);
-  color: #FAF7F4;
-  background: transparent;
+  --shine-bg: rgba(62, 46, 43, 0.45);
+  --shine-fg: #FAF7F4;
+  --shine-hi: var(--champagne);
+  --shine-color: #FAF7F4;
+  --shine-dot: rgba(250, 247, 244, 0.4);
+  --shine-inner: rgba(250, 247, 244, 0.32);
+  --shine-dots-opacity: 0.18;
+  --shine-veil: 0.32;
+  --shine-veil-hover: 0.55;
   width: 100%;
 }
 
-.btn-outline-light:hover {
-  background: rgba(250, 247, 244, 0.1);
-  border-color: rgba(250, 247, 244, 0.7);
+@keyframes shine-spin {
+  to {
+    --shine-angle: 360deg;
+  }
+}
+
+@keyframes shine-rotate {
+  to {
+    rotate: 360deg;
+  }
 }
 
 .btn-lg {
