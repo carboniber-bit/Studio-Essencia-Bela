@@ -919,6 +919,87 @@ body.menu-open {
   color: var(--off);
 }
 
+.open-status {
+  grid-column: 1 / -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-self: start;
+  margin: 0;
+  padding: 8px 16px 8px 13px;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(250, 247, 244, 0.72);
+  background: rgba(250, 247, 244, 0.05);
+  border: 1px solid rgba(250, 247, 244, 0.13);
+  border-radius: 999px;
+}
+
+.open-status[hidden] {
+  display: none;
+}
+
+.open-status-dot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  background: rgba(250, 247, 244, 0.4);
+  transition: background var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.open-status-label {
+  font-weight: 600;
+  color: var(--off);
+}
+
+.open-status-detail {
+  margin-left: 2px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: rgba(250, 247, 244, 0.6);
+}
+
+.open-status-detail::before {
+  content: "·";
+  margin-right: 8px;
+  opacity: 0.6;
+}
+
+.open-status.is-open .open-status-dot {
+  background: #8fe0b0;
+  box-shadow: 0 0 0 4px rgba(143, 224, 176, 0.16);
+  animation: statusPulse 2.6s ease-out infinite;
+}
+
+.open-status.is-open .open-status-label {
+  color: #b9efce;
+}
+
+.open-status.is-closed .open-status-dot {
+  background: #f08c8c;
+  box-shadow: 0 0 0 4px rgba(240, 140, 140, 0.14);
+}
+
+.open-status.is-closed .open-status-label {
+  color: #f6c0c0;
+}
+
+@keyframes statusPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(143, 224, 176, 0.32);
+  }
+  70% {
+    box-shadow: 0 0 0 9px rgba(143, 224, 176, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(143, 224, 176, 0);
+  }
+}
+
 .hero-visual {
   position: relative;
   margin: 0;

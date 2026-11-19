@@ -145,6 +145,63 @@
     });
   }
 
+  const openStatus = document.querySelector('[data-open-status]');
+
+  if (openStatus) {
+    const OPEN_DAYS = [2, 3, 4, 5, 6]; // terça a sábado
+    const OPEN_MIN = 8 * 60;
+    const CLOSE_MIN = 21 * 60;
+    const DAY_NAMES = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+    const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const label = openStatus.querySelector('[data-open-status-label]');
+    const detail = openStatus.querySelector('[data-open-status-detail]');
+    const clock = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Sao_Paulo',
+      weekday: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    });
+
+    const nowInStudio = () => {
+      const parts = {};
+      clock.formatToParts(new Date()).forEach((part) => {
+        parts[part.type] = part.value;
+      });
+      return {
+        day: WEEKDAYS.indexOf(parts.weekday),
+        minutes: parseInt(parts.hour, 10) * 60 + parseInt(parts.minute, 10),
+      };
+    };
+
+    const nextOpening = (day, minutes) => {
+      if (OPEN_DAYS.includes(day) && minutes < OPEN_MIN) return 'abre hoje às 8h';
+      for (let step = 1; step <= 7; step += 1) {
+        const next = (day + step) % 7;
+        if (OPEN_DAYS.includes(next)) {
+          return step === 1 ? 'abre amanhã às 8h' : `abre ${DAY_NAMES[next]} às 8h`;
+        }
+      }
+      return '';
+    };
+
+    const renderOpenStatus = () => {
+      const { day, minutes } = nowInStudio();
+      const isOpen = OPEN_DAYS.includes(day) && minutes >= OPEN_MIN && minutes < CLOSE_MIN;
+      openStatus.classList.toggle('is-open', isOpen);
+      openStatus.classList.toggle('is-closed', !isOpen);
+      openStatus.hidden = false;
+      if (label) label.textContent = isOpen ? 'Aberto agora' : 'Fechado agora';
+      if (detail) detail.textContent = isOpen ? 'fecha às 21h' : nextOpening(day, minutes);
+    };
+
+    renderOpenStatus();
+    setInterval(renderOpenStatus, 30000);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) renderOpenStatus();
+    });
+  }
+
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const revealEls = document.querySelectorAll('[data-reveal]');
