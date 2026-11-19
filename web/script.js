@@ -49,6 +49,37 @@
     if (window.innerWidth > 980) closeMenu();
   });
 
+  const story = document.querySelector('.scroll-story');
+  const storyMq = window.matchMedia('(min-width: 1000px) and (min-height: 780px)');
+  const motionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let storyFrame = 0;
+
+  const writeStory = () => {
+    storyFrame = 0;
+    if (!story) return;
+    if (!storyMq.matches || motionMq.matches) {
+      story.style.removeProperty('--story-p');
+      return;
+    }
+    const progress = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.9)));
+    story.style.setProperty('--story-p', progress.toFixed(3));
+  };
+
+  const queueStory = () => {
+    if (storyFrame) return;
+    storyFrame = requestAnimationFrame(writeStory);
+  };
+
+  if (story) {
+    queueStory();
+    window.addEventListener('scroll', queueStory, { passive: true });
+    window.addEventListener('resize', queueStory);
+    [storyMq, motionMq].forEach((mq) => {
+      if (mq.addEventListener) mq.addEventListener('change', queueStory);
+      else mq.addListener(queueStory);
+    });
+  }
+
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const revealEls = document.querySelectorAll('[data-reveal]');

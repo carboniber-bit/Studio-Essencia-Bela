@@ -64,6 +64,7 @@ body {
   color: var(--site-fg);
   background: var(--site-bg);
   overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -1726,6 +1727,47 @@ body.menu-open {
   100% { box-shadow: 0 0 0 0 rgba(197, 143, 145, 0); }
 }
 
+/* ---------- scroll story: pinned hero reveal ---------- */
+
+@media (min-width: 1000px) and (min-height: 780px) {
+  .scroll-story {
+    position: relative;
+    background: radial-gradient(70% 62% at 50% 42%, #4A3733, #30221F 78%);
+  }
+
+  .scroll-story .hero {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100svh;
+    padding-top: calc(var(--header-h) + 24px);
+    padding-bottom: 36px;
+    border-radius: calc(34px * var(--story-p, 0));
+    box-shadow: 0 60px 130px -70px rgba(0, 0, 0, 0.65);
+    transform-origin: 50% 44%;
+    transform: scale(calc(1 - 0.14 * var(--story-p, 0)))
+      rotate(calc(-3.2deg * var(--story-p, 0)));
+    will-change: transform;
+  }
+
+  .scroll-story .hero-frame {
+    width: min(100%, calc((100svh - var(--header-h) - 132px) * 0.8));
+    margin-left: auto;
+  }
+
+  .scroll-story .story-front {
+    position: relative;
+    z-index: 2;
+    transform-origin: 50% 0;
+    transform: scale(calc(0.92 + 0.08 * var(--story-p, 1)))
+      rotate(calc(1.4deg * (1 - var(--story-p, 1))));
+    will-change: transform;
+  }
+}
+
 /* ---------- reveal & entrance ---------- */
 
 [data-reveal] {
@@ -1928,6 +1970,16 @@ body.menu-open {
   .container,
   .header-inner {
     width: min(calc(100% - 36px), var(--container));
+  }
+
+  .eyebrow {
+    gap: 10px;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+  }
+
+  .eyebrow::before {
+    width: 26px;
   }
 
   h1 {
