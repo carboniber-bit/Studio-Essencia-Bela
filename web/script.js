@@ -126,4 +126,164 @@
       if (section) navObserver.observe(section);
     });
   }
+
+  const ribbon = document.querySelector('[data-gallery-ribbon]');
+
+  if (ribbon) {
+    const SLICES = 16;
+    const CAMERA = 1.6;
+    const MAX_WIDTH = 55;
+    const SPEED = 6;
+    const TILE_HEIGHT = 62;
+    const ASPECT = 0.8;
+    const GAP = 7;
+    const AXIS = 50;
+    const BEND = (70 * Math.PI) / 180;
+    const IMAGES = ['09', '04', '02', '05', '08', '07', '01', '03', '06'].map(
+      (n) => `assets/img/gallery-${n}.jpg`
+    );
+
+    const arc = (bend) => (CAMERA - 1 + Math.cos(bend)) / (2 * CAMERA * Math.sin(bend));
+
+    const measure = (width, height) => {
+      const h = Math.min((TILE_HEIGHT / 100) * height, ((MAX_WIDTH / 100) * width) / ASPECT);
+      const radius = width * arc(BEND);
+      if (!(h > 0) || !(radius > 0)) return { columns: 4, sweep: 0, unit: 0, limit: 0 };
+      const deg = (rad) => (rad * 180) / Math.PI;
+      const unit = deg(h / radius);
+      const pitch = (ASPECT + GAP / 100) * unit;
+      const limit = deg(BEND) + (ASPECT * unit) / 2;
+      const columns = Math.min(60, Math.max(2, Math.ceil((2 * limit) / pitch)));
+      return { columns, sweep: (columns * pitch) / 2, unit, limit };
+    };
+
+    const u = (n) =>
+      `calc(${+n.toFixed(4)} * min(${TILE_HEIGHT}cqh, ${+(MAX_WIDTH / ASPECT).toFixed(4)}cqw))`;
+
+    const turn = (deg, radius) =>
+      `translateZ(${radius}) rotateY(${+deg.toFixed(4)}deg) translateZ(-${radius})`;
+
+    const frameStyle = document.createElement('style');
+    document.head.appendChild(frameStyle);
+
+    let band = null;
+    let key = '';
+    let shownReady = false;
+
+    const build = () => {
+      const layout = measure(ribbon.clientWidth, ribbon.clientHeight);
+      const nextKey = `${layout.columns}|${layout.sweep.toFixed(2)}|${layout.unit.toFixed(2)}`;
+      if (nextKey === key) return;
+      key = nextKey;
+
+      const { columns, sweep, unit, limit } = layout;
+      const r = 100 * arc(BEND);
+      const radius = `${+r.toFixed(3)}cqw`;
+      const hide = +(((sweep - limit) / (2 * sweep || 1)) * 100).toFixed(4);
+      const duration = columns * SPEED;
+
+      frameStyle.textContent =
+        `@keyframes ribbon-orbit{` +
+        `from{transform:${turn(-sweep, radius)}}to{transform:${turn(sweep, radius)}}` +
+        `0%,${hide}%,${100 - hide}%,100%{visibility:hidden}` +
+        `${hide + 0.001}%,${100 - hide - 0.001}%{visibility:visible}}`;
+
+      const nextBand = document.createElement('div');
+      nextBand.className = 'gallery-ribbon-band';
+      nextBand.style.perspective = `${+(r * CAMERA).toFixed(3)}cqw`;
+      nextBand.style.perspectiveOrigin = `50% ${AXIS}%`;
+
+      const share = ASPECT / SLICES;
+      const used = new Array(columns).fill(0);
+      let lastPicked = 0;
+
+      for (let t = 0; t < columns; t++) {
+        const first = columns - 1 - t;
+        const tile = document.createElement('div');
+        tile.className = 'ribbon-tile';
+        tile.style.left = `calc(50% - ${u(ASPECT / 2)})`;
+        tile.style.top = `calc(${AXIS}% - ${u(0.5)})`;
+        tile.style.width = u(ASPECT);
+        tile.style.height = u(1);
+        tile.style.animation = `ribbon-orbit ${duration}s linear ${-t * SPEED}s infinite`;
+
+        const pics = [];
+        const start = first % IMAGES.length;
+        used[t] = start;
+
+        for (let k = 0; k < SLICES; k++) {
+          const slice = document.createElement('div');
+          slice.className = 'ribbon-slice';
+          slice.style.left = u((ASPECT - share) / 2);
+          slice.style.width = k === SLICES - 1 ? u(share) : `calc(${u(share)} + 1px)`;
+          slice.style.height = u(1);
+          slice.style.transform = turn((ASPECT / 2 - (k + 0.5) * share) * unit, radius);
+
+          const img = document.createElement('img');
+          img.src = IMAGES[start];
+          img.alt = '';
+          img.draggable = false;
+          img.decoding = 'async';
+          img.style.left = u(-k * share);
+          img.style.width = u(ASPECT);
+          img.style.height = u(1);
+
+          slice.appendChild(img);
+          tile.appendChild(slice);
+          pics.push(img);
+        }
+
+        tile.addEventListener('animationiteration', () => {
+          let next = lastPicked;
+          for (let i = 0; i < IMAGES.length; i++) {
+            next = (next + 1) % IMAGES.length;
+            if (!used.includes(next)) break;
+          }
+          lastPicked = next;
+          used[t] = next;
+          pics.forEach((img) => {
+            img.src = IMAGES[next];
+          });
+        });
+
+        nextBand.appendChild(tile);
+      }
+
+      if (band) band.remove();
+      band = nextBand;
+      ribbon.appendChild(band);
+      ribbon.style.setProperty('--ribbon-duration', `${duration}s`);
+
+      if (!shownReady) {
+        shownReady = true;
+        requestAnimationFrame(() => requestAnimationFrame(() => ribbon.classList.add('is-ready')));
+      }
+    };
+
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      IMAGES.forEach((src) => {
+        const preload = new Image();
+        preload.src = src;
+      });
+      build();
+      if ('ResizeObserver' in window) new ResizeObserver(build).observe(ribbon);
+    };
+
+    if ('IntersectionObserver' in window) {
+      const trigger = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          trigger.disconnect();
+          start();
+        },
+        { rootMargin: '700px 0px' }
+      );
+      trigger.observe(ribbon);
+    } else {
+      start();
+    }
+  }
 })();

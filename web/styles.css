@@ -501,13 +501,15 @@ p {
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 42px;
+  width: 46px;
   height: 42px;
 }
 
-.brand-mark svg {
+.brand-mark img {
+  display: block;
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 
 .brand-text {
@@ -1168,49 +1170,90 @@ body.menu-open {
   background: var(--site-bg);
 }
 
-.gallery-grid {
-  columns: 3;
-  column-gap: calc(18px * var(--site-space, 1));
+.gallery-ribbon {
+  position: relative;
+  height: clamp(250px, 30vw, 430px);
+  margin-bottom: calc(56px * var(--site-space, 1));
+  overflow: hidden;
+  container-type: size;
 }
 
-.gallery-grid figure {
-  position: relative;
-  margin: 0 0 calc(18px * var(--site-space, 1));
-  break-inside: avoid;
-  border-radius: var(--site-radius);
+.gallery-ribbon-band {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 700ms ease;
+}
+
+.gallery-ribbon.is-ready .gallery-ribbon-band {
+  opacity: 1;
+}
+
+.ribbon-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: clamp(76px, 15%, 220px);
+  pointer-events: none;
+}
+
+.ribbon-fade-l {
+  left: 0;
+  background: linear-gradient(90deg, var(--site-bg) 0%, var(--site-bg) 28%, transparent 100%);
+}
+
+.ribbon-fade-r {
+  right: 0;
+  background: linear-gradient(270deg, var(--site-bg) 0%, var(--site-bg) 28%, transparent 100%);
+}
+
+.ribbon-tile {
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.ribbon-slice {
+  position: absolute;
+  top: 0;
   overflow: hidden;
   background: var(--nude);
 }
 
-.gallery-grid img {
-  width: 100%;
-  height: auto;
-  transition: transform 900ms var(--ease), filter var(--dur) ease;
-}
-
-.gallery-grid figure::after {
-  content: "";
+.ribbon-slice img {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(62, 46, 43, 0.18), transparent 45%);
-  opacity: 0;
-  transition: opacity var(--dur) ease;
+  top: 0;
+  max-width: none;
+  object-fit: cover;
   pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-.gallery-grid figure:hover img {
-  transform: scale(1.045);
+.ribbon-slice:first-child {
+  border-radius: 10px 0 0 10px;
 }
 
-.gallery-grid figure:hover::after {
-  opacity: 1;
+.ribbon-slice:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ribbon-tile {
+    animation-duration: var(--ribbon-duration, 30s) !important;
+    animation-iteration-count: infinite !important;
+    animation-play-state: paused !important;
+  }
 }
 
 .gallery-note {
   display: flex;
   gap: 10px;
   max-width: 660px;
-  margin-top: 22px;
+  margin-top: 0;
   font-size: 12px;
   line-height: 1.7;
   color: var(--site-muted);
@@ -1583,6 +1626,13 @@ body.menu-open {
   color: #FAF7F4;
 }
 
+.brand-footer-logo img {
+  display: block;
+  width: 232px;
+  max-width: 100%;
+  height: auto;
+}
+
 .brand-footer .brand-sub {
   color: #B49B93;
 }
@@ -1665,6 +1715,12 @@ body.menu-open {
   font-size: 11px;
   letter-spacing: 0.04em;
   color: #A78F88;
+}
+
+@media (min-width: 1000px) {
+  .footer-bottom {
+    padding-right: 150px;
+  }
 }
 
 .footer-bottom a {
@@ -1932,10 +1988,6 @@ body.menu-open {
     grid-column: span 1;
   }
 
-  .gallery-grid {
-    columns: 2;
-  }
-
   .reviews-layout {
     grid-template-columns: 1fr;
   }
@@ -2077,16 +2129,6 @@ body.menu-open {
 
   .svc-media {
     aspect-ratio: 16 / 11;
-  }
-
-  .gallery-grid {
-    columns: 2;
-    column-gap: 10px;
-  }
-
-  .gallery-grid figure {
-    margin-bottom: 10px;
-    border-radius: 14px;
   }
 
   .gallery-note {

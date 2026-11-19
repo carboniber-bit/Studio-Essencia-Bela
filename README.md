@@ -35,5 +35,5 @@ O site publicado na Vercel é público por padrão. Para manter o acesso restrit
 ## Conteúdo
 
 - Todos os agendamentos apontam para o WhatsApp `(11) 96657-7616`.
-- As imagens da galeria são ilustrativas e não representam trabalhos realizados pelo studio.
+- As fotos da galeria, dos serviços e do hero são trabalhos reais fornecidos pelo studio; a logo oficial substitui o monograma anterior.
 - Serviços e textos seguem as informações validadas com a proprietária; não há perfis sociais vinculados.
