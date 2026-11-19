@@ -146,6 +146,40 @@ p {
   top: 16px;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+main:focus {
+  outline: none;
+}
+
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 120;
+  height: 2px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.scroll-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--rosa) 0%, var(--champagne) 100%);
+  transform: scaleX(var(--scroll-p, 0));
+  transform-origin: 0 50%;
+}
+
 /* ---------- shared type and controls ---------- */
 
 .section-index {
@@ -1253,12 +1287,24 @@ body.menu-open {
   border-radius: 0 10px 10px 0;
 }
 
+.gallery-ribbon.is-paused .ribbon-tile {
+  animation-play-state: paused !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ribbon-tile {
     animation-duration: var(--ribbon-duration, 30s) !important;
     animation-iteration-count: infinite !important;
     animation-play-state: paused !important;
   }
+}
+
+.gallery-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 28px;
 }
 
 .gallery-note {
@@ -1274,6 +1320,53 @@ body.menu-open {
 .gallery-note span {
   color: var(--site-accent);
   line-height: 1.5;
+}
+
+.gallery-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 9px 16px;
+  border: 1px solid var(--site-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--site-muted);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--dur) ease, color var(--dur) ease;
+}
+
+.gallery-toggle:hover {
+  border-color: var(--site-accent);
+  color: var(--marrom);
+}
+
+.gallery-toggle svg {
+  width: 11px;
+  height: 11px;
+}
+
+.gallery-toggle .ico-play {
+  display: none;
+}
+
+.gallery-toggle[aria-pressed="true"] .ico-pause {
+  display: none;
+}
+
+.gallery-toggle[aria-pressed="true"] .ico-play {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-toggle {
+    display: none;
+  }
 }
 
 /* ---------- reviews ---------- */
@@ -1510,9 +1603,17 @@ body.menu-open {
   margin-top: 30px;
 }
 
+.loc-map-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
 .loc-map {
   position: relative;
-  min-height: 100%;
+  flex: 1;
+  min-height: 440px;
   border: 1px solid var(--site-border);
   border-radius: var(--site-radius);
   overflow: hidden;
@@ -1529,19 +1630,89 @@ body.menu-open {
   filter: saturate(0.82) contrast(0.98);
 }
 
-.map-caption {
-  position: absolute;
-  left: 16px;
-  bottom: 48px;
-  padding: 9px 15px;
+.map-cover {
+  display: none;
+}
+
+.map-cover-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 11px 20px;
+  border: 1px solid rgba(250, 247, 244, 0.45);
   border-radius: 999px;
-  background: rgba(250, 247, 244, 0.92);
-  backdrop-filter: blur(6px);
+  background: rgba(62, 46, 43, 0.9);
+  color: var(--site-on-accent);
+  font-family: inherit;
   font-size: 10.5px;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background var(--dur) ease, border-color var(--dur) ease;
+}
+
+.map-cover-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.map-cover-btn:hover {
+  background: var(--deep);
+  border-color: rgba(250, 247, 244, 0.75);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .loc-map.is-map-locked iframe {
+    pointer-events: none;
+  }
+
+  .loc-map.is-map-locked .map-cover {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 14px;
+    background: linear-gradient(180deg, transparent 58%, rgba(62, 46, 43, 0.45));
+  }
+
+  .loc-map:not(.is-map-locked) .map-cover {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    z-index: 2;
+    display: block;
+  }
+
+  .loc-map:not(.is-map-locked) .map-cover-btn {
+    min-height: 44px;
+    padding: 8px 14px;
+    border-color: var(--site-border);
+    background: rgba(250, 247, 244, 0.94);
+    color: var(--marrom);
+    font-size: 9.5px;
+  }
+}
+
+.map-fallback {
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--site-muted);
+}
+
+.map-fallback a {
   color: var(--marrom);
-  pointer-events: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(156, 101, 103, 0.45);
+}
+
+.map-fallback a:hover {
+  text-decoration-color: var(--site-accent);
 }
 
 /* ---------- final CTA ---------- */
@@ -1616,6 +1787,55 @@ body.menu-open {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #6E544C;
+}
+
+.cta-steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 26px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.cta-steps li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  color: #5A453F;
+}
+
+.cta-steps li span {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(87, 67, 63, 0.28);
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 600;
+  color: #5A453F;
+}
+
+.cta .cta-help {
+  margin-top: 18px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #5A453F;
+}
+
+.cta-help a {
+  color: var(--deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(62, 46, 43, 0.4);
+}
+
+.cta-help a:hover {
+  text-decoration-color: var(--deep);
 }
 
 /* ---------- footer ---------- */
@@ -2184,5 +2404,14 @@ body.menu-open {
 
   .cta .btn {
     width: 100%;
+  }
+
+  .cta-steps {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: fit-content;
+    margin-inline: auto;
+    text-align: left;
   }
 }

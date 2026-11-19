@@ -78,6 +78,7 @@
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress"></span></div>
 
   <header class="site-header" id="site-header">
     <div class="header-inner">
@@ -92,16 +93,17 @@
       </a>
 
       <nav class="nav" aria-label="Navegação principal">
-        <a href="#sobre">O Studio</a>
         <a href="#servicos">Serviços</a>
         <a href="#galeria">Galeria</a>
+        <a href="#sobre">O Studio</a>
         <a href="#avaliacoes">Avaliações</a>
         <a href="#localizacao">Onde estamos</a>
       </nav>
 
-      <a class="btn btn-primary header-cta" href="https://wa.me/5511966577616" target="_blank" rel="noopener">
+      <a class="btn btn-primary header-cta" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">
         Agendar horário
         <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="sr-only">(abre em nova aba)</span>
       </a>
 
       <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
@@ -113,19 +115,19 @@
 
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <nav class="mobile-nav" aria-label="Navegação móvel">
-      <a href="#sobre"><span>01</span> O Studio</a>
-      <a href="#servicos"><span>02</span> Serviços</a>
-      <a href="#galeria"><span>03</span> Galeria</a>
+      <a href="#servicos"><span>01</span> Serviços</a>
+      <a href="#galeria"><span>02</span> Galeria</a>
+      <a href="#sobre"><span>03</span> O Studio</a>
       <a href="#avaliacoes"><span>04</span> Avaliações</a>
       <a href="#localizacao"><span>05</span> Onde estamos</a>
     </nav>
     <div class="mobile-menu-foot">
-      <a class="btn btn-primary" href="https://wa.me/5511966577616" target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
-      <p>Av. João de Andrade – Santo Antônio<br>Osasco – SP · (11) 96657-7616</p>
+      <a class="btn btn-primary" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">Agendar pelo WhatsApp<span class="sr-only"> (abre em nova aba)</span></a>
+      <p>Av. João de Andrade – Santo Antônio<br>Osasco – SP · <a href="tel:+5511966577616">(11) 96657-7616</a></p>
     </div>
   </div>
 
-  <main id="conteudo">
+  <main id="conteudo" tabindex="-1">
     <div class="scroll-story">
     <!-- HERO -->
     <section class="hero" id="topo">
@@ -139,34 +141,32 @@
           <h1 data-rise style="--d:.14s">Suas unhas merecem <em>um cuidado especial.</em></h1>
           <span class="hero-rule" data-rise style="--d:.26s" aria-hidden="true"></span>
           <p class="lead" data-rise style="--d:.32s">Realce sua beleza com unhas impecáveis, atendimento cuidadoso e aquele carinho em cada detalhe. Conheça o Studio Essência Bela, em Osasco.</p>
-          <a class="hero-cta" data-rise style="--d:.4s" href="https://wa.me/5511966577616" target="_blank" rel="noopener">
+          <a class="hero-cta" data-rise style="--d:.4s" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">
             Agendar pelo WhatsApp
             <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="sr-only">(abre em nova aba)</span>
           </a>
         </div>
 
         <div class="hero-contact" data-rise style="--d:.5s">
-          <a class="hero-contact-item" href="https://wa.me/5511966577616" target="_blank" rel="noopener">
+          <a class="hero-contact-item" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.2 3.8h3l1.4 3.8-2 1.3a11 11 0 0 0 6.5 6.5l1.3-2 3.8 1.4v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.2 6a2 2 0 0 1 2-2.2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
             <span>
               <strong>WhatsApp</strong>
               (11) 96657-7616
-            </span>
-          </a>
-          <a class="hero-contact-item" href="https://www.google.com/maps/place/Studio+Ess%C3%AAncia+Bela/@-23.5491837,-46.8189955,15z/" target="_blank" rel="noopener">
+            </span> <span class="sr-only">(abre em nova aba)</span></a>
+          <a class="hero-contact-item" href="https://www.google.com/maps/place/Studio+Ess%C3%AAncia+Bela/@-23.5491837,-46.8189955,15z/" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6" stroke="currentColor" stroke-width="1.3"/></svg>
             <span>
               <strong>Endereço</strong>
               Av. João de Andrade<br>Santo Antônio · Osasco
-            </span>
-          </a>
-          <a class="hero-contact-item" href="https://www.google.com/maps/place/Studio+Ess%C3%AAncia+Bela/@-23.5491837,-46.8189955,15z/" target="_blank" rel="noopener">
+            </span> <span class="sr-only">(abre em nova aba)</span></a>
+          <a class="hero-contact-item" href="https://www.google.com/maps/place/Studio+Ess%C3%AAncia+Bela/@-23.5491837,-46.8189955,15z/" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3.6 2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.7-5 2.7.9-5.6-4-3.9 5.6-.8L12 3.6Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
             <span>
               <strong>Avaliações</strong>
               5,0 no Google · 30 avaliações
-            </span>
-          </a>
+            </span> <span class="sr-only">(abre em nova aba)</span></a>
         </div>
       </div>
 
@@ -185,6 +185,125 @@
         <span>Capricho em cada detalhe</span>
       </div>
     </div>
+
+    <!-- SERVIÇOS -->
+    <section class="section servicos" id="servicos">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-index" data-reveal><span>01</span> Serviços</p>
+            <h2 data-reveal>Beleza que começa nos detalhes.</h2>
+          </div>
+          <p class="section-lead" data-reveal>Fale com o studio pelo WhatsApp para confirmar valores, disponibilidade e o cuidado que combina com você.</p>
+        </div>
+
+        <div class="svc-grid">
+          <article class="svc-card" data-reveal>
+            <div class="svc-media">
+              <img src="assets/img/svc-manicure.jpg" width="800" height="600" alt="Unhas naturais com cutículas cuidadas e acabamento delicado" loading="lazy" decoding="async">
+              <span class="svc-num">01</span>
+            </div>
+            <div class="svc-body">
+              <h3>Manicure</h3>
+              <p>Cuidado completo para as mãos e unhas, com um acabamento delicado e atento aos detalhes.</p>
+              <a class="svc-link" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20sobre%20manicure%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">
+                Consultar pelo WhatsApp
+                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> <span class="sr-only">(abre em nova aba)</span></a>
+            </div>
+          </article>
+
+          <article class="svc-card" data-reveal style="--delay:80ms">
+            <div class="svc-media">
+              <img src="assets/img/svc-esmalte.jpg" width="800" height="600" alt="Unhas em vermelho intenso com acabamento brilhante" loading="lazy" decoding="async">
+              <span class="svc-num">02</span>
+            </div>
+            <div class="svc-body">
+              <h3>Esmaltação</h3>
+              <p>Cores e acabamentos escolhidos com você, aplicados com precisão e capricho.</p>
+              <a class="svc-link" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20sobre%20esmalta%C3%A7%C3%A3o%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">
+                Consultar pelo WhatsApp
+                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> <span class="sr-only">(abre em nova aba)</span></a>
+            </div>
+          </article>
+
+          <article class="svc-card" data-reveal style="--delay:160ms">
+            <div class="svc-media">
+              <img src="assets/img/svc-cuidados.jpg" width="800" height="600" alt="Mãos em cabine de secagem LED durante o atendimento no studio" loading="lazy" decoding="async">
+              <span class="svc-num">03</span>
+            </div>
+            <div class="svc-body">
+              <h3>Cuidados com as unhas</h3>
+              <p>Atenção especial à saúde e à beleza natural das suas unhas.</p>
+              <a class="svc-link" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20sobre%20cuidados%20com%20as%20unhas%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">
+                Consultar pelo WhatsApp
+                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> <span class="sr-only">(abre em nova aba)</span></a>
+            </div>
+          </article>
+
+          <article class="svc-card" data-reveal>
+            <div class="svc-media">
+              <img src="assets/img/svc-nailart.jpg" width="800" height="600" alt="Unha decorada com flores vermelhas e folhas douradas sobre base clara" loading="lazy" decoding="async">
+              <span class="svc-num">04</span>
+            </div>
+            <div class="svc-body">
+              <h3>Nail art e decoração</h3>
+              <p>Detalhes e decorações para deixar o seu estilo ainda mais pessoal.</p>
+              <a class="svc-link" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20sobre%20nail%20art%20e%20decora%C3%A7%C3%A3o%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">
+                Consultar pelo WhatsApp
+                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> <span class="sr-only">(abre em nova aba)</span></a>
+            </div>
+          </article>
+
+          <article class="svc-card" data-reveal style="--delay:80ms">
+            <div class="svc-media">
+              <img src="assets/img/svc-outros.jpg" width="800" height="600" alt="Unhas com francesinha e brilho em tom lilás" loading="lazy" decoding="async">
+              <span class="svc-num">05</span>
+            </div>
+            <div class="svc-body">
+              <h3>Outros serviços</h3>
+              <p>Consulte outros cuidados disponíveis e monte o atendimento ideal para você.</p>
+              <a class="svc-link" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20outros%20servi%C3%A7os%20do%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">
+                Consultar pelo WhatsApp
+                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> <span class="sr-only">(abre em nova aba)</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    </div>
+    </div>
+
+    <!-- GALERIA -->
+    <section class="section galeria" id="galeria">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-index" data-reveal><span>02</span> Galeria</p>
+            <h2 data-reveal>Cada detalhe faz a diferença.</h2>
+          </div>
+          <p class="section-lead" data-reveal>Uma seleção de trabalhos realizados no studio, com cuidado em cada detalhe.</p>
+        </div>
+      </div>
+
+      <div class="gallery-ribbon" id="galeria-faixa" data-gallery-ribbon data-reveal aria-hidden="true">
+        <span class="ribbon-fade ribbon-fade-l"></span>
+        <span class="ribbon-fade ribbon-fade-r"></span>
+      </div>
+
+      <div class="container">
+        <div class="gallery-foot" data-reveal>
+          <p class="gallery-note">
+            <span aria-hidden="true">✳</span>
+            Trabalhos reais realizados no Studio Essência Bela. Cada resultado é único e feito com cuidado em cada detalhe.
+          </p>
+          <button class="gallery-toggle" type="button" data-gallery-toggle aria-controls="galeria-faixa" aria-pressed="false">
+            <svg class="ico-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3" width="2.6" height="10" rx="1" fill="currentColor"/><rect x="9.4" y="3" width="2.6" height="10" rx="1" fill="currentColor"/></svg>
+            <svg class="ico-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 3.2v9.6L13 8 4.5 3.2Z" fill="currentColor"/></svg>
+            <span class="gallery-toggle-label">Pausar animação</span>
+          </button>
+        </div>
+      </div>
+    </section>
 
     <!-- SOBRE -->
     <section class="section sobre" id="sobre">
@@ -209,7 +328,7 @@
         </div>
 
         <div class="sobre-copy">
-          <p class="section-index" data-reveal><span>01</span> O Studio</p>
+          <p class="section-index" data-reveal><span>03</span> O Studio</p>
           <h2 data-reveal>Muito mais que cuidar das unhas, um momento para você.</h2>
           <p class="sobre-text" data-reveal>No Studio Essência Bela, cada atendimento é realizado com carinho, dedicação e atenção aos mínimos detalhes. Nosso propósito é proporcionar uma experiência agradável, acolhedora e profissional, onde você possa cuidar de si e realçar sua beleza.</p>
 
@@ -237,128 +356,12 @@
             </div>
           </div>
 
-          <a class="link-arrow" href="https://wa.me/5511966577616" target="_blank" rel="noopener" data-reveal>
+          <a class="link-arrow" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer" data-reveal>
             Agendar um momento para você
             <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="sr-only">(abre em nova aba)</span>
           </a>
         </div>
-      </div>
-    </section>
-    </div>
-    </div>
-
-    <!-- SERVIÇOS -->
-    <section class="section servicos" id="servicos">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <p class="section-index" data-reveal><span>02</span> Serviços</p>
-            <h2 data-reveal>Beleza que começa nos detalhes.</h2>
-          </div>
-          <p class="section-lead" data-reveal>Fale com o studio pelo WhatsApp para confirmar valores, disponibilidade e o cuidado que combina com você.</p>
-        </div>
-
-        <div class="svc-grid">
-          <article class="svc-card" data-reveal>
-            <div class="svc-media">
-              <img src="assets/img/svc-manicure.jpg" width="800" height="600" alt="Unhas naturais com cutículas cuidadas e acabamento delicado" loading="lazy" decoding="async">
-              <span class="svc-num">01</span>
-            </div>
-            <div class="svc-body">
-              <h3>Manicure</h3>
-              <p>Cuidado completo para as mãos e unhas, com um acabamento delicado e atento aos detalhes.</p>
-              <a class="svc-link" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20sobre%20manicure%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener">
-                Consultar pelo WhatsApp
-                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            </div>
-          </article>
-
-          <article class="svc-card" data-reveal style="--delay:80ms">
-            <div class="svc-media">
-              <img src="assets/img/svc-esmalte.jpg" width="800" height="600" alt="Unhas em vermelho intenso com acabamento brilhante" loading="lazy" decoding="async">
-              <span class="svc-num">02</span>
-            </div>
-            <div class="svc-body">
-              <h3>Esmaltação</h3>
-              <p>Cores e acabamentos escolhidos com você, aplicados com precisão e capricho.</p>
-              <a class="svc-link" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20sobre%20esmalta%C3%A7%C3%A3o%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener">
-                Consultar pelo WhatsApp
-                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            </div>
-          </article>
-
-          <article class="svc-card" data-reveal style="--delay:160ms">
-            <div class="svc-media">
-              <img src="assets/img/svc-cuidados.jpg" width="800" height="600" alt="Mãos em cabine de secagem LED durante o atendimento no studio" loading="lazy" decoding="async">
-              <span class="svc-num">03</span>
-            </div>
-            <div class="svc-body">
-              <h3>Cuidados com as unhas</h3>
-              <p>Atenção especial à saúde e à beleza natural das suas unhas.</p>
-              <a class="svc-link" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20sobre%20cuidados%20com%20as%20unhas%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener">
-                Consultar pelo WhatsApp
-                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            </div>
-          </article>
-
-          <article class="svc-card" data-reveal>
-            <div class="svc-media">
-              <img src="assets/img/svc-nailart.jpg" width="800" height="600" alt="Unha decorada com flores vermelhas e folhas douradas sobre base clara" loading="lazy" decoding="async">
-              <span class="svc-num">04</span>
-            </div>
-            <div class="svc-body">
-              <h3>Nail art e decoração</h3>
-              <p>Detalhes e decorações para deixar o seu estilo ainda mais pessoal.</p>
-              <a class="svc-link" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20sobre%20nail%20art%20e%20decora%C3%A7%C3%A3o%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener">
-                Consultar pelo WhatsApp
-                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            </div>
-          </article>
-
-          <article class="svc-card" data-reveal style="--delay:80ms">
-            <div class="svc-media">
-              <img src="assets/img/svc-outros.jpg" width="800" height="600" alt="Unhas com francesinha e brilho em tom lilás" loading="lazy" decoding="async">
-              <span class="svc-num">05</span>
-            </div>
-            <div class="svc-body">
-              <h3>Outros serviços</h3>
-              <p>Consulte outros cuidados disponíveis e monte o atendimento ideal para você.</p>
-              <a class="svc-link" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20outros%20servi%C3%A7os%20do%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener">
-                Consultar pelo WhatsApp
-                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- GALERIA -->
-    <section class="section galeria" id="galeria">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <p class="section-index" data-reveal><span>03</span> Galeria</p>
-            <h2 data-reveal>Cada detalhe faz a diferença.</h2>
-          </div>
-          <p class="section-lead" data-reveal>Uma seleção de trabalhos realizados no studio, com cuidado em cada detalhe.</p>
-        </div>
-      </div>
-
-      <div class="gallery-ribbon" data-gallery-ribbon data-reveal aria-hidden="true">
-        <span class="ribbon-fade ribbon-fade-l"></span>
-        <span class="ribbon-fade ribbon-fade-r"></span>
-      </div>
-
-      <div class="container">
-        <p class="gallery-note" data-reveal>
-          <span aria-hidden="true">✳</span>
-          Trabalhos reais realizados no Studio Essência Bela. Cada resultado é único e feito com cuidado em cada detalhe.
-        </p>
       </div>
     </section>
 
@@ -378,10 +381,9 @@
             <span class="stars stars-lg" aria-label="5 de 5 estrelas">★★★★★</span>
             <p class="score-count">30 avaliações de clientes</p>
             <p class="score-text">Uma experiência bem avaliada por quem já viveu o cuidado do Studio Essência Bela.</p>
-            <a class="btn btn-outline-light" href="https://www.google.com/maps/place/Studio+Ess%C3%AAncia+Bela/@-23.5491837,-46.8189955,15z/" target="_blank" rel="noopener">
+            <a class="btn btn-outline-light" href="https://www.google.com/maps/place/Studio+Ess%C3%AAncia+Bela/@-23.5491837,-46.8189955,15z/" target="_blank" rel="noopener noreferrer">
               Ver avaliações no Google
-              <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
+              <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> <span class="sr-only">(abre em nova aba)</span></a>
           </aside>
 
           <div class="reviews-list">
@@ -441,7 +443,7 @@
                 </span>
                 <div>
                   <span class="loc-label">WhatsApp e telefone</span>
-                  <p><a href="https://wa.me/5511966577616" target="_blank" rel="noopener">(11) 96657-7616</a></p>
+                  <p><a href="tel:+5511966577616">(11) 96657-7616</a></p>
                 </div>
               </div>
               <div class="loc-item">
@@ -456,20 +458,30 @@
             </div>
 
             <div class="loc-actions" data-reveal>
-              <a class="btn btn-primary" href="https://www.google.com/maps/place/Studio+Ess%C3%AAncia+Bela/@-23.5491837,-46.8189955,15z/" target="_blank" rel="noopener">
+              <a class="btn btn-primary" href="https://www.google.com/maps/place/Studio+Ess%C3%AAncia+Bela/@-23.5491837,-46.8189955,15z/" target="_blank" rel="noopener noreferrer">
                 Como chegar
-                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-              <a class="btn btn-ghost" href="https://wa.me/5511966577616" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+                <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> <span class="sr-only">(abre em nova aba)</span></a>
+              <a class="btn btn-ghost" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20hor%C3%A1rios%20dispon%C3%ADveis%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">Consultar horários <span class="sr-only">(abre em nova aba)</span></a>
             </div>
           </div>
 
-          <div class="loc-map" data-reveal>
-            <iframe
-              src="https://www.google.com/maps?q=Studio%20Ess%C3%AAncia%20Bela%2C%20Av.%20Jo%C3%A3o%20de%20Andrade%2C%20Santo%20Ant%C3%B4nio%2C%20Osasco%20-%20SP%2C%2006132-000&output=embed"
-              title="Mapa com a localização do Studio Essência Bela em Osasco"
-              loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-            <span class="map-caption">Studio Essência Bela · Santo Antônio, Osasco</span>
+          <div class="loc-map-wrap" data-reveal>
+            <div class="loc-map" data-map>
+              <iframe
+                src="https://maps.google.com/maps?q=Studio%20Ess%C3%AAncia%20Bela%2C%20Av.%20Jo%C3%A3o%20de%20Andrade%2C%20Santo%20Ant%C3%B4nio%2C%20Osasco%20-%20SP%2C%2006132-000&hl=pt-BR&z=16&output=embed"
+                title="Mapa com a localização do Studio Essência Bela em Osasco"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+              <div class="map-cover" data-map-cover>
+                <button class="map-cover-btn" type="button" data-map-activate aria-pressed="false">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 3H4a1 1 0 0 0-1 1v5M15 3h5a1 1 0 0 1 1 1v5M9 21H4a1 1 0 0 1-1-1v-5M15 21h5a1 1 0 0 0 1-1v-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  <span data-map-label>Explorar o mapa</span>
+                </button>
+              </div>
+            </div>
+            <p class="map-fallback">
+              Mapa não carregou?
+              <a href="https://www.google.com/maps/place/Studio+Ess%C3%AAncia+Bela/@-23.5491837,-46.8189955,15z/" target="_blank" rel="noopener noreferrer">Abrir no Google Maps<span class="sr-only"> (abre em nova aba)</span></a>
+            </p>
           </div>
         </div>
       </div>
@@ -481,11 +493,21 @@
         <span class="cta-ornament" aria-hidden="true">✦</span>
         <h2 data-reveal>Seu próximo momento de beleza começa aqui!</h2>
         <p data-reveal>Agende seu horário e venha viver uma experiência de cuidado, carinho e beleza no Studio Essência Bela.</p>
-        <a class="btn btn-primary btn-lg" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener" data-reveal>
-          Quero agendar meu horário
+        <a class="btn btn-primary btn-lg" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer" data-reveal>
+          Agendar pelo WhatsApp
           <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="sr-only">(abre em nova aba)</span>
         </a>
         <p class="cta-note" data-reveal>Atendimento com agendamento · Osasco – SP</p>
+        <ol class="cta-steps" data-reveal>
+          <li><span aria-hidden="true">1</span>Escolha o serviço</li>
+          <li><span aria-hidden="true">2</span>Envie a mensagem no WhatsApp</li>
+          <li><span aria-hidden="true">3</span>Confirme o horário</li>
+        </ol>
+        <p class="cta-help" data-reveal>
+          Ficou com dúvida sobre valores ou disponibilidade?
+          <a href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">Fale com a gente antes<span class="sr-only"> (abre em nova aba)</span></a>.
+        </p>
       </div>
     </section>
   </main>
@@ -503,18 +525,18 @@
 
         <nav class="footer-nav" aria-label="Links do rodapé">
           <h3>Navegação</h3>
-          <a href="#sobre">O Studio</a>
           <a href="#servicos">Serviços</a>
           <a href="#galeria">Galeria</a>
+          <a href="#sobre">O Studio</a>
           <a href="#avaliacoes">Avaliações</a>
-          <a href="#localizacao">Localização</a>
+          <a href="#localizacao">Onde estamos</a>
         </nav>
 
         <div class="footer-contact">
           <h3>Contato</h3>
-          <a href="https://wa.me/5511966577616" target="_blank" rel="noopener">WhatsApp · (11) 96657-7616</a>
+          <a href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer">WhatsApp · (11) 96657-7616<span class="sr-only"> (abre em nova aba)</span></a>
           <p>Av. João de Andrade – Santo Antônio<br>Osasco – SP · CEP 06132-000</p>
-          <a href="https://www.google.com/maps/place/Studio+Ess%C3%AAncia+Bela/@-23.5491837,-46.8189955,15z/" target="_blank" rel="noopener">Ver no Google Maps</a>
+          <a href="https://www.google.com/maps/place/Studio+Ess%C3%AAncia+Bela/@-23.5491837,-46.8189955,15z/" target="_blank" rel="noopener noreferrer">Ver no Google Maps<span class="sr-only"> (abre em nova aba)</span></a>
         </div>
       </div>
 
@@ -525,13 +547,13 @@
     </div>
   </footer>
 
-  <a class="wa-float" href="https://wa.me/5511966577616" target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp no Studio Essência Bela">
+  <a class="wa-float" href="https://wa.me/5511966577616?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20no%20Studio%20Ess%C3%AAncia%20Bela." target="_blank" rel="noopener noreferrer" aria-label="Agendar pelo WhatsApp no Studio Essência Bela (abre em nova aba)">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
     <span class="wa-label">Agendar</span>
   </a>
 
   <noscript>
-    <style>[data-reveal]{opacity:1 !important;transform:none !important}</style>
+    <style>[data-reveal],[data-rise]{opacity:1 !important;transform:none !important}</style>
   </noscript>
   <script src="script.js" defer></script>
 </body>

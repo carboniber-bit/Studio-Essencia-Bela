@@ -13,6 +13,28 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
+  const progressBar = document.getElementById('scroll-progress');
+  let progressFrame = 0;
+
+  const writeProgress = () => {
+    progressFrame = 0;
+    if (!progressBar) return;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const value = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    progressBar.style.setProperty('--scroll-p', value.toFixed(4));
+  };
+
+  const queueProgress = () => {
+    if (progressFrame) return;
+    progressFrame = requestAnimationFrame(writeProgress);
+  };
+
+  if (progressBar) {
+    queueProgress();
+    window.addEventListener('scroll', queueProgress, { passive: true });
+    window.addEventListener('resize', queueProgress);
+  }
+
   const closeMenu = () => {
     if (!menu.classList.contains('is-open')) return;
     menu.classList.remove('is-open');
@@ -39,7 +61,8 @@
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
+    if (event.key !== 'Escape') return;
+    if (menu.classList.contains('is-open')) {
       closeMenu();
       toggle.focus();
     }
@@ -100,7 +123,7 @@
   }
 
   if ('IntersectionObserver' in window) {
-    const sectionIds = ['sobre', 'servicos', 'galeria', 'avaliacoes', 'localizacao'];
+    const sectionIds = ['servicos', 'galeria', 'sobre', 'avaliacoes', 'localizacao'];
     const linkMap = new Map();
     sectionIds.forEach((id) => {
       const link = document.querySelector(`.nav a[href="#${id}"]`);
@@ -124,6 +147,38 @@
     sectionIds.forEach((id) => {
       const section = document.getElementById(id);
       if (section) navObserver.observe(section);
+    });
+  }
+
+  const map = document.querySelector('[data-map]');
+  const mapBtn = document.querySelector('[data-map-activate]');
+  const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)');
+
+  if (map && mapBtn) {
+    const mapLabel = mapBtn.querySelector('[data-map-label]');
+
+    const setMapLocked = (locked) => {
+      map.classList.toggle('is-map-locked', locked);
+      mapBtn.setAttribute('aria-pressed', String(!locked));
+      if (mapLabel) mapLabel.textContent = locked ? 'Explorar o mapa' : 'Recolher mapa';
+    };
+
+    setMapLocked(coarsePointer.matches);
+
+    mapBtn.addEventListener('click', () => {
+      setMapLocked(!map.classList.contains('is-map-locked'));
+    });
+
+    const onCoarseChange = (event) => setMapLocked(event.matches);
+    if (coarsePointer.addEventListener) coarsePointer.addEventListener('change', onCoarseChange);
+    else coarsePointer.addListener(onCoarseChange);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      if (!map.classList.contains('is-map-locked') && coarsePointer.matches) {
+        setMapLocked(true);
+        mapBtn.focus();
+      }
     });
   }
 
@@ -285,5 +340,18 @@
     } else {
       start();
     }
+  }
+
+  const ribbonToggle = document.querySelector('[data-gallery-toggle]');
+
+  if (ribbon && ribbonToggle) {
+    const toggleLabel = ribbonToggle.querySelector('.gallery-toggle-label');
+
+    ribbonToggle.addEventListener('click', () => {
+      const paused = ribbonToggle.getAttribute('aria-pressed') !== 'true';
+      ribbon.classList.toggle('is-paused', paused);
+      ribbonToggle.setAttribute('aria-pressed', String(paused));
+      if (toggleLabel) toggleLabel.textContent = paused ? 'Retomar animação' : 'Pausar animação';
+    });
   }
 })();
