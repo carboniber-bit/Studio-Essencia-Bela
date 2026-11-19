@@ -753,6 +753,85 @@ body.menu-open {
   color: var(--nude);
 }
 
+@property --title-idle-x {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --title-idle-y {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero h1 {
+    background-image:
+      linear-gradient(
+        104deg,
+        rgba(250, 247, 244, 0.05) 0%,
+        rgba(62, 46, 43, 0.05) 22%,
+        rgba(250, 247, 244, 0.08) 40%,
+        rgba(197, 143, 145, 0.1) 56%,
+        rgba(62, 46, 43, 0.04) 72%,
+        rgba(250, 247, 244, 0.07) 88%,
+        rgba(250, 247, 244, 0.02) 100%
+      ),
+      url("assets/img/title-texture.jpg");
+    background-size: 100% 100%, 112% 125%;
+    background-position:
+      0 0,
+      calc(50% + var(--title-idle-x, 0px) + var(--title-pointer-x, 0px))
+        calc(50% + var(--title-idle-y, 0px) + var(--title-pointer-y, 0px));
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: brightness(1.08);
+  }
+
+  .hero h1 em {
+    color: inherit;
+  }
+
+  .hero h1[data-rise] {
+    animation:
+      rise 0.9s var(--ease) var(--d, 0s) both,
+      title-fill 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both,
+      title-drift 17s ease-in-out 1s infinite alternate;
+  }
+}
+
+@keyframes title-fill {
+  from {
+    clip-path: inset(-0.3em 105% -0.3em -0.12em);
+  }
+  to {
+    clip-path: inset(-0.3em -0.12em -0.3em -0.12em);
+  }
+}
+
+@keyframes title-drift {
+  from {
+    --title-idle-x: -9px;
+    --title-idle-y: 5px;
+  }
+  to {
+    --title-idle-x: 9px;
+    --title-idle-y: -5px;
+  }
+}
+
+@media (forced-colors: active) {
+  .hero h1,
+  .hero h1 em {
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+    color: CanvasText;
+  }
+}
+
 .hero-rule {
   display: block;
   width: 76px;
@@ -2260,6 +2339,7 @@ body.menu-open {
   .hero h1 {
     max-width: none;
     font-size: calc(clamp(2.45rem, 10.4vw, 3.1rem) * var(--site-type, 1));
+    background-size: 100% 100%, 135% 150%;
   }
 
   .hero .lead {

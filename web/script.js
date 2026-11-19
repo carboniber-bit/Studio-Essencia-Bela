@@ -103,6 +103,48 @@
     });
   }
 
+  const hero = document.querySelector('.hero');
+  const heroTitle = hero ? hero.querySelector('h1') : null;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+  if (hero && heroTitle && finePointer.matches && !motionMq.matches) {
+    let titleX = 0;
+    let titleY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let titleFrame = 0;
+
+    const writeTitle = () => {
+      titleFrame = 0;
+      titleX += (targetX - titleX) * 0.12;
+      titleY += (targetY - titleY) * 0.12;
+      heroTitle.style.setProperty('--title-pointer-x', `${titleX.toFixed(2)}px`);
+      heroTitle.style.setProperty('--title-pointer-y', `${titleY.toFixed(2)}px`);
+      if (Math.abs(targetX - titleX) > 0.2 || Math.abs(targetY - titleY) > 0.2) {
+        titleFrame = requestAnimationFrame(writeTitle);
+      }
+    };
+
+    const queueTitle = () => {
+      if (!titleFrame) titleFrame = requestAnimationFrame(writeTitle);
+    };
+
+    hero.addEventListener('pointermove', (event) => {
+      const rect = hero.getBoundingClientRect();
+      const nx = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      const ny = ((event.clientY - rect.top) / rect.height) * 2 - 1;
+      targetX = nx * -16;
+      targetY = ny * -12;
+      queueTitle();
+    });
+
+    hero.addEventListener('pointerleave', () => {
+      targetX = 0;
+      targetY = 0;
+      queueTitle();
+    });
+  }
+
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const revealEls = document.querySelectorAll('[data-reveal]');
